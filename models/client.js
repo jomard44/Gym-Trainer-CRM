@@ -5,7 +5,7 @@ const clientSchema = new mongoose.Schema({
   trainer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Trainer",
-    required: true,
+    // required: true,
   },
   goals: { type: String },
   age: { type: Number },
@@ -13,4 +13,4 @@ const clientSchema = new mongoose.Schema({
   active: { type: Boolean, default: true },
 });
 
-export const Client = mongoose.model("Client", clientSchema);
+export default mongoose.model("Client", clientSchema);

@@ -1,17 +1,17 @@
-import user from "../models/user.js";
+import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const register = async (req, res) => {
   try {
     const { email, password, role } = req.body;
-    const existingUser = await user.findOne({ email });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "user already exist" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newuser = await user.create({
+    const newuser = await User.create({
       email,
       password: hashedPassword,
       role,
@@ -24,11 +24,19 @@ export const register = async (req, res) => {
       },
     );
 
-    res.status(201).json({
-      message: "User registered successfully",
-      user: newuser.email,
-      token,
-    });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: procces.env.COOKIE_SECURE,
+        sameSite: process.env.COOKIE_SAMESITE,
+        maxAge: 60 * 60 * 1000,
+      })
+      .status(201)
+      .json({
+        message: "User registered successfully",
+        user: newuser.email,
+        token,
+      });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -37,7 +45,7 @@ export const register = async (req, res) => {
 export const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const existingUser = await user.findOne({ email });
+    const existingUser = await User.findOne({ email });
     if (!existingUser) {
       return res.status(404).json({ message: "user does not exist" });
     }
@@ -54,12 +62,21 @@ export const signin = async (req, res) => {
         expiresIn: "1h",
       },
     );
-    res.status(200).json({
-      message: "you are now signed in",
-      user: existingUser.email,
-      token,
-    });
+
+    res
+      .cookie("token", token, {
+        httpOnlY: true,
+        secure: false,
+        sameSite: "strict",
+        maxAge: 60 * 60 * 100,
+      })
+      .status(200)
+      .json({
+        message: "you are now signed in",
+        user: existingUser.email,
+        token,
+      });
   } catch (error) {
-    (res.status(500).json({ error: error.message }));
+    res.status(500).json({ error: error.message });
   }
 };
