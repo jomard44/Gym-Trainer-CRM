@@ -1,0 +1,31 @@
+{
+  "name": "gym-trainer-crm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jomard44/Gym-Trainer-CRM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/jomard44/Gym-Trainer-CRM/issues"
+  },
+  "homepage": "https://github.com/jomard44/Gym-Trainer-CRM#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1",
+    "nodemon": "^3.1.11"
+  }
+}
