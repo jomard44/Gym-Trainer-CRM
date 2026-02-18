@@ -14,7 +14,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ["client", "trainer"],
+    
   },
+  createdAt:{
+    type:Date,
+    default:Date.now
+  }
 });
 
-export default mongoose.model("user", userSchema);
+export default mongoose.model("User", userSchema);
