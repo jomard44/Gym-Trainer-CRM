@@ -28,7 +28,7 @@ export const createProgram = async (req, res) => {
   try {
     const newProgram = await Program.create({
       ...req.body,
-      user:req.user.id
+      trainer: req.user.id,
     });
     res.status(201).json({ newProgram });
   } catch (error) {
@@ -39,7 +39,11 @@ export const createProgram = async (req, res) => {
 export const editProgram = async (req, res) => {
   try {
     const { id } = req.params;
-    const program = await Program.findOneAndUpdate({ _id: id, trainer: req.user.id }, req.body, { new: true });
+    const program = await Program.findOneAndUpdate(
+      { _id: id, trainer: req.user.id },
+      req.body,
+      { new: true },
+    );
     if (!program) {
       return res.status(404).json({ message: "this program does not exist" });
     }
@@ -51,13 +55,11 @@ export const editProgram = async (req, res) => {
 export const deleteProgram = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedProgram = await Program.findByIdAndDelete(id);
+    Program.findOneAndDelete({ _id: id, trainer: req.user.id });
     if (!deletedProgram) {
       return res.status(404).json({ message: "this program does not exist" });
     }
-    res
-      .status(200)
-      .json({ message: "program have been deleted" });
+    res.status(200).json({ message: "program have been deleted" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
