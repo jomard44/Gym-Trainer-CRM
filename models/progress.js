@@ -12,4 +12,4 @@ const progressLogSchema = new mongoose.Schema({
   notes: { type: String },
 });
 
-export const ProgressLog = mongoose.model("ProgressLog", progressLogSchema);
+export default mongoose.model("ProgressLog", progressLogSchema);

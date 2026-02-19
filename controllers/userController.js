@@ -26,10 +26,10 @@ export const register = async (req, res) => {
 
     res
       .cookie("token", token, {
-        httpOnly: true,
-        secure: procces.env.COOKIE_SECURE,
-        sameSite: process.env.COOKIE_SAMESITE,
-        maxAge: 60 * 60 * 1000,
+        httpOnlY: true,
+        secure: false,
+        sameSite: "strict",
+        maxAge: 60 * 60 * 100,
       })
       .status(201)
       .json({

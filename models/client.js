@@ -5,7 +5,7 @@ const clientSchema = new mongoose.Schema({
   trainer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Trainer",
-    // required: true,
+   // required: true,
   },
   goals: { type: String },
   age: { type: Number },

@@ -6,4 +6,4 @@ const trainerSchema = new mongoose.Schema({
   clients: [{ type: mongoose.Schema.Types.ObjectId, ref: "Client" }],
 });
 
-export const Trainer = mongoose.model("Trainer", trainerSchema);
+export default mongoose.model("Trainer", trainerSchema);
