@@ -15,11 +15,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     enum: ["client", "trainer"],
     
-  },
-  createdAt:{
-    type:Date,
-    default:Date.now
   }
-});
+},{timestamps: true});
 
 export default mongoose.model("User", userSchema);

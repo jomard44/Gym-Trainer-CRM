@@ -3,7 +3,7 @@ import { getTrainerProfile, updateTrainerProfile } from "../controllers/tranierC
 
 const trainerRouter = express.Router()
 
-trainerRouter.get("/trainer/me",getTrainerProfile)
-trainerRouter.put("/trainer/me",updateTrainerProfile)
+trainerRouter.get("/me",getTrainerProfile)
+trainerRouter.put("/me",updateTrainerProfile)
 
-export default trainerRouter={}
+export default trainerRouter

@@ -11,9 +11,10 @@ const router = express.Router();
 
 router.use("/users", userRouter);
 router.use("/clients", auth, clientRouter);
-router.use("/clients/programs", auth, programRouter);
-router.use("clients/progress", auth, progressRouter);
+router.use("/programs", auth, programRouter);
+router.use("/progress", auth, progressRouter);
 router.use("/sessions", auth, sessionRouter);
-router.use("/", auth, trainerRoutes);
+router.use("/trainer", auth, trainerRoutes);
+
 
 export default router;

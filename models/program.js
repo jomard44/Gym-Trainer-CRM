@@ -3,12 +3,12 @@ const programSchema = new mongoose.Schema({
   trainer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Trainer",
-   // required: true,
+    required: true,
   },
   client: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Client",
-   // required: true,
+    required: true,
   },
   title: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
@@ -26,6 +26,6 @@ const programSchema = new mongoose.Schema({
       ],
     },
   ],
-});
+},{timestamps: true});
 
 export default mongoose.model("Program", programSchema);

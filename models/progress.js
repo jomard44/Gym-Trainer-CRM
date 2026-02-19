@@ -10,6 +10,6 @@ const progressLogSchema = new mongoose.Schema({
   weight: { type: Number },
   bodyFat: { type: Number },
   notes: { type: String },
-});
+},{timestamps: true});
 
 export default mongoose.model("ProgressLog", progressLogSchema);

@@ -7,12 +7,15 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
 app.use("/api", router);
 
-mongoose.connect(process.env.DB).then(
-  app.listen(3000, () => {
-    console.log("server is runing on port 3000");
-  }),
-);
+mongoose
+  .connect(process.env.DB)
+  .then(() => {
+    app.listen(3000, () => {
+      console.log("server is running on port 3000");
+    });
+  })
+  .catch((err) => console.log(err));

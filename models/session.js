@@ -17,6 +17,6 @@ const sessionSchema = new mongoose.Schema({
     enum: ["scheduled", "completed", "cancelled"],
     default: "scheduled",
   },
-});
+},{timestamps: true});
 
 export default mongoose.model("Session", sessionSchema);
