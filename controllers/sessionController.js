@@ -14,7 +14,7 @@ export const getSessions = async (req, res) => {
 export const getSession = async (req, res) => {
   try {
     const { id } = req.params;
-    const session = await Session.findOne(id);
+    const session = await Session.findOne({ _id: id, user: req.user.id });
     if (!session) {
       return res.status(404).json({ message: "you have no session" });
     }
@@ -27,7 +27,7 @@ export const createSession = async (req, res) => {
   try {
     const newSession = await Session.create({
       ...req.body,
-      user: user.req.id,
+      user: req.user.id,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -36,8 +36,12 @@ export const createSession = async (req, res) => {
 export const editSessions = async (req, res) => {
   try {
     const { id } = req.params;
-    const editedSession = await Session.findOneAndUpdate({ id });
-    if (!editSessions) {
+    const editedSession = await Session.findOneAndUpdate(
+      { _id: id, user: req.user.id },
+      req.body,
+      { new: true },
+    );
+    if (!editedSessions) {
       return res.status(404).json({ message: "can't edit this record" });
     }
     res.status(200).json({ editedSession });
@@ -48,7 +52,7 @@ export const editSessions = async (req, res) => {
 export const deleteSession = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedSession = await Session.findOneAndDelete({ id });
+    const deletedSession = await Session.findOneAndDelete({ _id: id, user: req.user.id });
     if (!deletedSession) {
       return res.status(404).json({ message: "can't delete this record" });
     }
@@ -57,7 +61,6 @@ export const deleteSession = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 export const getClientSessions = async (req, res) => {
   try {

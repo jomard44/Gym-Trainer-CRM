@@ -2,7 +2,7 @@ import Program from "../models/program.js";
 
 export const getPrograms = async (req, res) => {
   try {
-    const program = await Program.find({ user: req.user.id });
+    const program = await Program.find({ trainer: req.user.id });
     if (program.length === 0) {
       return res.status(404).json({ message: "you have no programs" });
     }
@@ -14,7 +14,7 @@ export const getPrograms = async (req, res) => {
 export const getProgram = async (req, res) => {
   try {
     const { id } = req.params;
-    const program = await Program.findById(id);
+    const program = await Program.findOne({ _id: id, trainer: req.user.id });
     if (!program) {
       return res.status(404).json({ message: "you have no programs" });
     }
@@ -39,7 +39,7 @@ export const createProgram = async (req, res) => {
 export const editProgram = async (req, res) => {
   try {
     const { id } = req.params;
-    const program = await Program.findByIdAndUpdate(id, req.body, { new: true });
+    const program = await Program.findOneAndUpdate({ _id: id, trainer: req.user.id }, req.body, { new: true });
     if (!program) {
       return res.status(404).json({ message: "this program does not exist" });
     }
