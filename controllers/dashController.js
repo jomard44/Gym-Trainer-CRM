@@ -1,4 +1,7 @@
-export const getTrainerDashboard = async (req, res) => {
+import Client from "../models/client.js"
+import Session from "../models/session.js";
+import ProgressLog from "../models/progress.js";
+const getTrainerDashboard = async (req, res) => {
   try {
     const trainerId = req.user.id;
 
@@ -35,3 +38,5 @@ export const getTrainerDashboard = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export default getTrainerDashboard

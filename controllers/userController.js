@@ -28,7 +28,7 @@ export const register = async (req, res) => {
       .cookie("token", token, {
         httpOnlY: true,
         secure: false,
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 60 * 60 * 100,
       })
       .status(201)
@@ -67,7 +67,7 @@ export const signin = async (req, res) => {
       .cookie("token", token, {
         httpOnlY: true,
         secure: false,
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 60 * 60 * 100,
       })
       .status(200)

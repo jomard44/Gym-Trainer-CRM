@@ -6,7 +6,6 @@ import programRouter from "./programRoutes.js";
 import progressRouter from "./progressRoutes.js";
 import sessionRouter from "./sessionRoutes.js";
 import trainerRoutes from "./trainerRoutes.js";
-import getTrainerDashboard from "../controllers/dashController.js";
 
 const router = express.Router();
 
@@ -16,6 +15,6 @@ router.use("/programs", auth, programRouter);
 router.use("/progress", auth, progressRouter);
 router.use("/sessions", auth, sessionRouter);
 router.use("/trainer", auth, trainerRoutes);
-router.get("/dashboard/trainer", auth, getTrainerDashboard);
+router.use("/dashboard/trainer", auth, trainerRoutes);
 
 export default router;
