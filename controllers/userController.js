@@ -11,7 +11,7 @@ export const register = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newuser = await User.create({
+    const newUser = await User.create({
       email,
       password: hashedPassword,
       role,
@@ -26,15 +26,15 @@ export const register = async (req, res) => {
 
     res
       .cookie("token", token, {
-        httpOnlY: true,
+        httpOnly: true,
         secure: false,
-        sameSite: "none",
-        maxAge: 60 * 60 * 100,
+        sameSite: "lax",
+        maxAge: 60 * 60 * 1000,
       })
       .status(201)
       .json({
         message: "User registered successfully",
-        user: newuser.email,
+        user: newUser.email,
         token,
       });
   } catch (error) {
@@ -65,10 +65,10 @@ export const signin = async (req, res) => {
 
     res
       .cookie("token", token, {
-        httpOnlY: true,
+        httpOnly: true,
         secure: false,
-        sameSite: "none",
-        maxAge: 60 * 60 * 100,
+        sameSite: "lax",
+        maxAge: 60 * 60 * 1000,
       })
       .status(200)
       .json({

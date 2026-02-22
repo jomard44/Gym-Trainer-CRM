@@ -3,7 +3,7 @@ import fetchApi from "../api/fetchApi";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
 
   const fetchAuth = async () => {
@@ -28,4 +28,4 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-export default AuthProvider;
+export default AuthContext;

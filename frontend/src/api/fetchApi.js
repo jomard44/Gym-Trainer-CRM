@@ -1,6 +1,6 @@
 const fetchApi = async (endPoint,options = {}) => {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API}${endPoint}`, {
+    const res = await fetch(`${import.meta.env.VITE_API}/${endPoint}`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -9,12 +9,12 @@ const fetchApi = async (endPoint,options = {}) => {
     });
 
     if (!res.ok) {
-      return null;
+      return "not ok";
     }
     const data = await res.json();
     return data;
   } catch (error) {
-    return null;
+    return error;
   }
 };
 
