@@ -22,15 +22,15 @@ const Signin = () => {
         method: "POST",
         body: JSON.stringify(user),
       });
-      if (!signingUser) {
-        return <p>cant signin</p>;
+      if(!signingUser){
+         throw new Error ("cant authorize")
       }
+
       setIsAuth(true)
       navigate("/");
       setUser({ email: "", password: "", role: "" });
     } catch (error) {
-      console.error(error);
-      return <p>error accord when signing in</p>;
+      console.error(error.message);
     }
   };
 

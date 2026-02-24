@@ -9,12 +9,12 @@ const fetchApi = async (endPoint,options = {}) => {
     });
 
     if (!res.ok) {
-      return "not ok";
+      throw new Error("failed to fetch the api")
     }
     const data = await res.json();
     return data;
   } catch (error) {
-    return error;
+    console.error(error.message)
   }
 };
 

@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/authContext.jsx";
 import fetchApi from "../api/fetchApi";
+import Navbar from "../components/Navbar";
+
 function Dashboard() {
   const { isAuth } = useContext(AuthContext);
   const [dashInfo, setDashInfo] = useState([]);
@@ -24,6 +26,7 @@ function Dashboard() {
   }, []);
   return (
     <>
+    <Navbar/>
       <h1>dashboard</h1>
       {dashInfo && <>{dashInfo.data}</>}
     </>

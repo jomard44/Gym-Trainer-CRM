@@ -20,15 +20,12 @@ const Register = () => {
         method: "POST",
         body: JSON.stringify(user),
       });
-      if (!registerUser) {
-        return <p>cant register user</p>;
-      }
+      
 
       navigate("/signin");
       setUser({ email: "", password: "", role: "" });
     } catch (error) {
       console.error(error);
-      return <p>error accord when registering</p>;
     }
   };
 

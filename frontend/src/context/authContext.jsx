@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchAuth = async () => {
     try {
@@ -15,7 +16,9 @@ export const AuthProvider = ({ children }) => {
         setIsAuth(true);
       }
     } catch (error) {
-      setIsAuth(false);
+      console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -23,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth, fetchAuth }}>
+    <AuthContext.Provider value={{ isAuth, setIsAuth, fetchAuth, loading }}>
       {children}
     </AuthContext.Provider>
   );
