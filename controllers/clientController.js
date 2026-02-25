@@ -7,10 +7,13 @@ export const getClients = async (req, res) => {
     const trainer = await Trainer.findOne({ user: req.user.id });
 
     if (!trainer) {
-      return res.status(404).json({ message: "Trainer not found" });
+      console.log(trainer)
+      return res.status(404).json({ message: "trainer not found" });
     }
 
-    const clients = await Client.find({ trainer: trainer._id });
+    const clients = await Client.find({ trainer: trainer._id }).populate(
+      "user"
+    );
 
     if (clients.length === 0) {
       return res.status(404).json({ message: "you have no clients" });
@@ -63,7 +66,7 @@ export const createClient = async (req, res) => {
       age: req.body.age,
     });
     const trainerClient = await Trainer.findByIdAndUpdate(trainer._id, {
-      $push: { clients: {client: newClient._id,email: user.email}}
+      $push: { clients: { client: newClient._id, email: user.email } },
     });
 
     res.status(201).json(newClient);

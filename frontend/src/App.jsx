@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import AddClient from "./components/AddClient";
+import Program from "./components/Program";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route element={<ProtectedRoutes />}>
             <Route path="/" element={<Dashboard />}></Route>
             <Route path="/add-client" element={<AddClient />}></Route>
+            <Route path="/create-program" element={<Program />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

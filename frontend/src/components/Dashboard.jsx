@@ -9,9 +9,10 @@ function Dashboard() {
   const [dashInfo, setDashInfo] = useState(null);
   const getData = async () => {
     try {
-      const data = await fetchApi("dashboard/trainer/me");
+      const data = await fetchApi("dashboard/trainer/dash");
       if (!data) {
-        return <p>no data available</p>;
+        setDashInfo({ clients: [] });
+        return;
       }
 
       setDashInfo(data);
@@ -25,7 +26,7 @@ function Dashboard() {
     }
   }, [isAuth]);
   return (
-    <>
+    <> 
       <Navbar />
       <h1 className="text-center text-xl h-[10vh] m-4">dashboard</h1>
       {dashInfo?.clients?.map((client) => (
@@ -37,8 +38,8 @@ function Dashboard() {
           program={"No program yet"}
         />
       ))}
-      {!dashInfo && (
-        <p className="text-center text-xl  mt-[25%] ">you have no clients</p>
+      {dashInfo?.clients?.length === 0 && (
+        <p className="text-center text-xl mt-[25%]">you have no clients</p>
       )}
     </>
   );

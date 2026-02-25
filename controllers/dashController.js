@@ -1,42 +1,22 @@
 import Client from "../models/client.js"
-import Session from "../models/session.js";
-import ProgressLog from "../models/progress.js";
-const getTrainerDashboard = async (req, res) => {
-  try {
-    const trainerId = req.user.id;
+import Trainer from "../models/trainer.js";
 
-    const totalClients = await Client.countDocuments({ trainer: trainerId });
+export const getTrainerDashboard = async (req, res) => {
+try {
+    const trainer = await Trainer.findOne({ user: req.user.id });
 
-    const startOfWeek = new Date();
-    startOfWeek.setDate(startOfWeek.getDate() - 7);
-
-    const sessionsThisWeek = await Session.countDocuments({
-      trainer: trainerId,
-      datetime: { $gte: startOfWeek },
-    });
-
-    const clients = await Client.find({ trainer: trainerId });
-
-    let clientsWithNoProgress = 0;
-
-    for (let client of clients) {
-      const log = await ProgressLog.findOne({
-        client: client._id,
-        trainer: trainerId,
-        date: { $gte: startOfWeek },
-      });
-
-      if (!log) clientsWithNoProgress++;
+    if (!trainer) {
+      return res.status(404).json({ message: "trainer not found" });
     }
 
-    res.json({
-      totalClients,
-      sessionsThisWeek,
-      clientsWithNoProgress,
+    const clients = await Client.find({ trainer: trainer._id })
+      .populate("user");
+
+    res.status(200).json({
+      clients,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 export default getTrainerDashboard

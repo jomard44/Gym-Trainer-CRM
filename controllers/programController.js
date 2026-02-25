@@ -1,4 +1,5 @@
 import Program from "../models/program.js";
+import Trainer  from "../models/trainer.js";
 
 export const getPrograms = async (req, res) => {
   try {
@@ -26,9 +27,14 @@ export const getProgram = async (req, res) => {
 
 export const createProgram = async (req, res) => {
   try {
+     const trainer = await Trainer.findOne({ user: req.user.id });
+    if (!trainer) {
+      return res.status(404).json({ message: "trainer not found" });
+    }
+
     const newProgram = await Program.create({
       ...req.body,
-      trainer: req.user.id,
+      trainer: trainer._id,
     });
     res.status(201).json({ newProgram });
   } catch (error) {

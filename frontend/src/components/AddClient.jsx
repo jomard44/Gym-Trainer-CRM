@@ -1,5 +1,6 @@
 import { useState } from "react";
 import fetchApi from "../api/fetchApi";
+import { useNavigate } from "react-router-dom";
 
 export default function AddClient() {
   const [client, setClient] = useState({
@@ -7,8 +8,9 @@ export default function AddClient() {
     goals: "",
     age: "",
     program: "",
-    email: ""
+    email: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setClient({
@@ -25,16 +27,18 @@ export default function AddClient() {
         method: "POST",
         body: JSON.stringify(client),
       });
-      if(!res){
-         throw new Error ("cant add client")
+      if (!res) {
+        throw new Error("cant add client");
       }
-
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
       setClient({
         name: "",
         goals: "",
         age: "",
         program: "",
-        email:""
+        email: "",
       });
     } catch (error) {
       console.error(error.message);
