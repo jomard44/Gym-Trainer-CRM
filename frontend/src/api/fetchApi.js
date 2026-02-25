@@ -12,6 +12,7 @@ const fetchApi = async (endPoint,options = {}) => {
       throw new Error("failed to fetch the api")
     }
     const data = await res.json();
+    
     return data;
   } catch (error) {
     console.error(error.message)

@@ -10,7 +10,7 @@ import trainerRoutes from "./trainerRoutes.js";
 const router = express.Router();
 
 router.use("/users", userRouter);
-router.use("/clients", auth, clientRouter);
+router.use("/clients",auth, clientRouter);
 router.use("/programs", auth, programRouter);
 router.use("/progress", auth, progressRouter);
 router.use("/sessions", auth, sessionRouter);

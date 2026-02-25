@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Trainer from "../models/trainer.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -16,12 +17,19 @@ export const register = async (req, res) => {
       password: hashedPassword,
       role,
     });
+    if (role === "trainer") {
+      await Trainer.create({
+        user: newUser._id,
+        specialization: "",
+        clients: [],
+      });
+    }
     const token = jwt.sign(
       { id: newUser._id, email: newUser.email },
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",
-      },
+      }
     );
 
     res
@@ -60,7 +68,7 @@ export const signin = async (req, res) => {
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",
-      },
+      }
     );
 
     res
